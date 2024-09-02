@@ -1,0 +1,67 @@
+:root
+  --width: 1336px
+  --page-width: 1200px
+  --min-width: calc( var(--width) + 2rem )
+  --min-page-width: calc( var(--page-width) + 2rem )
+  --color-first-live-line: #FF0011
+  --color-primary: #0E77FF
+  --color-login-button: #2C88FF
+  --color-join-button: #0EACFF
+
+@import base
+@import layout
+@import page
+
+.changeColor-block
+  width: 200px
+  color: #000
+  background-color: #e9edf6
+  border-radius: 10px
+  padding: 10px
+  position: fixed
+  top: 10%
+  right: 10px
+  z-index: 9999
+  .changeColor-item
+    display: flex
+    flex-direction: column
+    + .changeColor-item
+      margin-top: 10px
+  .changeColor-title
+    font-size: 13px
+    padding-bottom: 2px
+  .changeColor-btn
+    display: flex
+    align-items: center
+    gap: 4px
+    .color
+      cursor: pointer
+      display: inline-block
+      flex: 0 0 30px
+      width: 30px
+      height: 30px
+      border-radius: 50%
+      cursor: pointer
+      border: 1px solid #ccc
+      input[type="color"]
+        width: 0
+        height: 0
+        opacity: 0
+  .changeColor-input
+    width: 100%
+    height: 30px
+    background-color: #fff
+    border: 1px solid #dbe1ef
+    border-radius: 4px
+    padding: 0 10px
+  .changeColor-submit
+    cursor: pointer
+    width: 100%
+    height: 40px
+    font-size: 14px
+    background-color: #bad0ed
+    border-radius: 4px
+    margin-top: 10px
+    transition: .3s background-color
+    &:hover
+      background-color: #9fbbe0
