@@ -27,9 +27,8 @@
 
 
 body
-  font-size: 15px
-  color: #fff
-  background-color: #000
+  color: var(--color-primary-text)
+  background-color: var(--color-primary-bg)
 
 .is-static
   width: 100%
@@ -39,21 +38,21 @@ body
   width: 100%
   min-width: var(--min-width)
   min-height: 100vh
-  font-size: .75rem
+  font-size: .9375rem
   margin: 0 auto
 
 // header
 .header-fixed-wrap
-  background-color: #212224
+  background-color: var(--color-header-bg)
   .ele-fixed-inner
-    width: var(--width)
-    background-color: #212224
+    width: var(--min-width)
+    background-color: var(--color-header-bg)
     margin: 0 auto
 
 .header-wrap
   display: flex
   justify-content: flex-start
-  gap: 18px
+  gap: 20px
   width: 100%
   margin: 0 auto
   .header-right
@@ -64,7 +63,7 @@ body
       padding: 18px 0 6px
       .est-timing
         white-space: nowrap
-        color: #888
+        color: var(--color-secondary-text)
       .ele-custom-link-wrap ul
         display: flex
         li
@@ -74,14 +73,14 @@ body
             display: block
             width: 1px
             height: 90%
-            background-color: #888
+            background-color: var(--color-secondary-text)
             position: absolute
             top: 55%
             left: 0
             transform: translateY(-50%)
         a
           white-space: nowrap
-          color: #888
+          color: var(--color-secondary-text)
           padding: 0 6px
           &:hover
             color: var(--color-primary)
@@ -89,7 +88,7 @@ body
 
 // footer
 .page-footer
-  background-color: #434343
+  background-color: var(--color-footer-bg)
 
 .footer-wrap
   width: var(--min-width)
@@ -98,7 +97,7 @@ body
   .footer-top-wrap
     display: flex
     justify-content: space-between
-    border-bottom: 1px solid #707070
+    border-bottom: 1px solid var(--color-footer-line)
     padding-bottom: 18px
     .top-logo-wrap,
     .top-pay-wrap
@@ -119,7 +118,7 @@ body
       top: 6px
     .middle-text
       line-height: 1.5
-      color: #F5F5F5
+      color: var(--color-primary-text)
   .footer-bottom-wrap
     display: flex
     justify-content: space-between
@@ -132,14 +131,14 @@ body
           display: block
           width: 1px
           height: 90%
-          background-color: #f5f5f5
+          background-color: var(--color-primary-text)
           position: absolute
           top: 55%
           left: 0
           transform: translateY(-50%)
         a
           white-space: nowrap
-          color: #f5f5f5
+          color: var(--color-primary-text)
           padding: 0 10px
           &:hover
             color: var(--color-primary)
@@ -169,7 +168,7 @@ body
         text-align: center
         min-width: 80px
         font-size: 18px
-        color: #F5F5F5
+        color: var(--color-primary-text)
         border-bottom: 3px solid transparent
         padding: 16px 20px
         &:hover
@@ -270,7 +269,7 @@ body
     height: 35px
     font-size: 13px
     border-radius: 5px
-    background-color: #434343
+    background-color: var(--color-login-input)
     border: 1px solid transparent
     padding-left: 10px
     position: relative
@@ -295,6 +294,7 @@ body
       position: relative
       z-index: 1
     .ele-acc-unicod
+      color: #717171
       margin-right: 10px
     .ele-forget-pw
       margin: 0 10px
@@ -335,7 +335,7 @@ body
   .news-item
     .ele-msgnews
       .ele-msgnews-link
-        color: #888
+        color: var(--color-secondary-text)
 
 
 
@@ -350,22 +350,22 @@ body
     margin: 0 auto
 
 .section1
-  background-color: #000
+  background-color: var(--color-primary-bg)
   padding: 52px 0 30px
   .section-wrap
     display: flex
     justify-content: space-between
 
 .section2
-  background-color: #212224
+  background-color: var(--color-secondary-bg)
   padding: 38px 0 42px
 
 .section3
-  background-color: #000
+  background-color: var(--color-primary-bg)
   padding: 33px 0 51px
 
 .section4
-  background-color: #212224
+  background-color: var(--color-secondary-bg)
   padding: 45px 0 35px
 
 
@@ -388,11 +388,11 @@ body
   position: relative
   .hotgame-title
     font-size: 21px
-    color: #F5F5F5
+    color: var(--color-primary-text)
     padding-bottom: 22px
     > span
       font-size: 16px
-      color: #888
+      color: var(--color-secondary-text)
       padding-left: 6px
   .hotgame-warp
     user-select: none
@@ -443,7 +443,7 @@ body
     .hotgame-number
       display: flex
       align-items: center
-      color: #F5F5F5
+      color: var(--color-primary-text)
       svg
         margin-right: 6px
   .hotgame-control
@@ -482,7 +482,7 @@ body
       cursor: pointer
       &:hover, &.active
         color: var(--color-primary)
-        background-color: #212223
+        background-color: var(--color-secondary-bg)
         border-color: var(--color-primary)
   .casino-wrap
     display: flex
@@ -537,7 +537,7 @@ body
     .item-name
       display: flex
       justify-content: space-between
-      color: #F5F5F5
+      color: var(--color-primary-text)
       padding-top: 14px
       .hot
         content: 'HOT'
@@ -547,7 +547,7 @@ body
         padding: 1px 6px
     .item-platform
       font-size: 13px
-      color: #888
+      color: var(--color-secondary-text)
       padding-top: 4px
 
 .first-live-wrap
@@ -658,7 +658,7 @@ body
     .description
       font-size: 16px
       line-height: 1.5
-      color: #F5F5F5
+      color: var(--color-primary-text)
       padding: 27px 0 49px
     .download
       display: flex

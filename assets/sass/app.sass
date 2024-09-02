@@ -6,22 +6,62 @@
   --color-first-live-line: #FF0011
   --color-primary: #0E77FF
   --color-login-button: #2C88FF
+  --color-login-input: #434343
   --color-join-button: #0EACFF
+  --color-primary-text: #f5f5f5
+  --color-secondary-text: #888888
+  --color-primary-bg: #000000
+  --color-secondary-bg: #212224
+  --color-header-bg: #212224
+  --color-platform-bg: #212224
+  --color-footer-bg: #434343
+  --color-footer-line: #707070
+
+:root[data-theme="light"]
+  --color-login-input: #C8CEE0
+  --color-primary-text: #272727
+  --color-secondary-text: #888888
+  --color-primary-bg: #ffffff
+  --color-secondary-bg: #EFF0F4
+  --color-header-bg: #EFF0F4
+  --color-platform-bg: #EFF0F4
+  --color-footer-bg: #C8CEE0
+  --color-footer-line: #707070
+
 
 @import base
 @import layout
 @import page
 
 .changeColor-block
+  position: fixed
+  top: 10%
+  right: 10px
+  z-index: 9999
+
+.changeColor-edit
+  position: absolute
+  right: 0
+  bottom: 100%
+  .edit
+    cursor: pointer
+    width: 44px
+    height: 44px
+    background-color: #e9edf6
+    border-radius: 50%
+    svg
+      width: 40%
+      color: #2a2c30
+      margin: 0 auto
+    &:hover
+      background-color: #bad0ed
+
+.changeColor-wrap
   width: 200px
   color: #000
   background-color: #e9edf6
   border-radius: 10px
   padding: 10px
-  position: fixed
-  top: 10%
-  right: 10px
-  z-index: 9999
   .changeColor-item
     display: flex
     flex-direction: column
@@ -65,3 +105,23 @@
     transition: .3s background-color
     &:hover
       background-color: #9fbbe0
+
+
+.changeColor-default
+  display: grid
+  grid-template-columns: repeat(2, 1fr)
+  border: 1px solid #f7f8fc
+  margin-bottom: 10px
+  .color-item
+    cursor: pointer
+    overflow: hidden
+    display: inline-flex
+    justify-content: center
+    align-items: center
+    width: 100%
+    height: 30px
+    font-size: 12px
+    transition: outline-color .3s
+    &.active
+      background-color: #fff
+      box-shadow: inset 0 0 0 1px #336fff
