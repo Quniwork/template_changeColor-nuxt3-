@@ -1,7 +1,7 @@
 <template>
   <div class="page-container">
     <div class="page-body">
-      <img :src="currentImage" alt="Theme Image">
+      <img :src="currentImage">
     </div>
   </div>
 </template>

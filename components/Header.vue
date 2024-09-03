@@ -6,7 +6,7 @@
           <div class="header-wrap">
             <div class="header-logo">
               <a href="#" class="ele-logo-wrap">
-                <div class="ele-logo-img"></div>
+                <img :src="currentImage" class="ele-logo-img">
               </a>
             </div>
             <div class="header-right">
@@ -182,11 +182,21 @@
 <script setup>
 import { useApiData } from '~/composables/useApiData'
 import { useRoute } from 'vue-router'
-import { computed, ref } from 'vue'
+import { ref, computed, inject } from 'vue'
 import Banner from '~/components/Banner.vue'
 import News from '~/components/News.vue'
 
 const { apiData } = useApiData()
+
+
+const theme = inject('theme')
+
+// 根据 theme 的值动态计算图片路径
+const currentImage = computed(() => {
+  return theme.value === 'dark'
+    ? '/image/logo.png'
+    : '/image/logo_light.png'
+})
 
 // 用于追踪当前 hover 的导航项目索引
 const hoverIndex = ref(null)

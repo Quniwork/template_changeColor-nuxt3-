@@ -41,7 +41,8 @@
           />
         </div>
       </div>
-      <button @click="saveImageAndCss" class="changeColor-submit">儲存示意圖與CSS</button>
+      <button @click="saveImageAndCss" class="changeColor-submit">保存示意圖與CSS</button>
+      <button @click="savePackage" class="changeColor-submit">保存封包</button>
     </div>
   </div>
 </template>
@@ -49,6 +50,7 @@
 <script setup>
 import { ref, onMounted, inject } from 'vue'
 import html2canvas from 'html2canvas'; // 导入 html2canvas
+import JSZip from 'jszip' // 导入 html2canvas
 
 // 主題狀態注入
 const theme = inject('theme')
@@ -150,10 +152,80 @@ const saveImage = () => {
   });
 };
 
-// 保存图片示意图和 CSS 文件的函数
+// 保存图片示意图和 CSS 文件
 const saveImageAndCss = () => {
   const cssContent = generateCss();
   saveCss(cssContent);
   saveImage();
 };
+
+
+// 保存封包
+const savePackage = async () => {
+  const zip = new JSZip();
+  const appTitle = getNuxtAppTitle();
+
+  // 获取当前HTML内容并创建DOM对象
+  let htmlContent = document.documentElement.outerHTML;
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlContent, 'text/html');
+
+  // 移除 ChangeColor 组件的 HTML 内容
+  const changeColorElement = doc.querySelector('.changeColor-block');
+  if (changeColorElement) {
+    changeColorElement.remove();
+  }
+
+  // 查找所有图片并下载到 image 文件夹
+  const imgTags = doc.querySelectorAll('img');
+  const promises = [];
+
+  imgTags.forEach((img, index) => {
+    const imgUrl = img.src;
+    const imgFilename = `image${index + 1}.jpg`; // 图片文件名
+    img.src = `image/${imgFilename}`; // 替换为本地路径
+
+    const promise = fetch(imgUrl)
+      .then(response => response.blob())
+      .then(blob => {
+        zip.file(`image/${imgFilename}`, blob);
+      });
+    promises.push(promise);
+  });
+
+  // 等待所有图片下载完成
+  await Promise.all(promises);
+
+  // 生成并保存修改后的HTML内容为index.html
+  htmlContent = doc.documentElement.outerHTML;
+  zip.file('index.html', htmlContent);
+
+  // 生成 CSS 文件
+  const cssContent = generateCss();
+  zip.file('style.css', cssContent);
+
+  // 生成图片示意图
+  const changeColorBlockElement = changeColorBlock.value;
+  changeColorBlockElement.style.display = 'none'; // 隐藏 ChangeColor 区块
+
+  html2canvas(document.body).then(canvas => {
+    const dataURL = canvas.toDataURL('image/jpeg');
+    const imgData = dataURL.split(',')[1]; // 去掉 data:image/jpeg;base64, 头部
+    zip.file(`screenshot.jpg`, imgData, { base64: true });
+
+    // 恢复显示 ChangeColor 区块
+    changeColorBlockElement.style.display = '';
+
+    // 生成 ZIP 文件并触发下载
+    zip.generateAsync({ type: 'blob' }).then(content => {
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(content);
+      link.download = `${appTitle}.zip`;
+      link.click();
+    });
+  }).catch(error => {
+    console.error('Error generating screenshot:', error);
+  });
+};
+
 </script>
