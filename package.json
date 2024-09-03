@@ -3,11 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "clean": "rm -rf .nuxt node_modules/.cache",
+    "build": "npm run clean && nuxt build"
   },
   "dependencies": {
     "@nuxt/scripts": "^0.7.1",
@@ -20,5 +21,8 @@
   },
   "devDependencies": {
     "sass": "^1.77.8"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }

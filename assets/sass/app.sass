@@ -39,6 +39,7 @@
 @import page
 
 .changeColor-block
+  font-family: roboto
   position: fixed
   top: 10%
   right: 10px
@@ -62,11 +63,12 @@
       background-color: #bad0ed
 
 .changeColor-wrap
-  width: 200px
+  width: 160px
   color: #000
   background-color: #e9edf6
+  box-shadow: 0 0 0 2px rgb(108 108 108 / 6%)
   border-radius: 10px
-  padding: 10px
+  padding: 12px
   .changeColor-item
     display: flex
     flex-direction: column
@@ -82,9 +84,9 @@
     .color
       cursor: pointer
       display: inline-block
-      flex: 0 0 30px
-      width: 30px
-      height: 30px
+      flex: 0 0 26px
+      width: 26px
+      height: 26px
       border-radius: 50%
       cursor: pointer
       border: 1px solid #ccc
@@ -95,6 +97,8 @@
   .changeColor-input
     width: 100%
     height: 30px
+    color: #212224
+    font-size: 13px
     background-color: #fff
     border: 1px solid #dbe1ef
     border-radius: 4px
@@ -125,8 +129,14 @@
     align-items: center
     width: 100%
     height: 30px
+    color: #979daa
     font-size: 12px
     transition: outline-color .3s
+    svg
+      width: 15px
+      height: 15px
+      margin-right: 2px
     &.active
+      color: #336fff
       background-color: #fff
       box-shadow: inset 0 0 0 1px #336fff
