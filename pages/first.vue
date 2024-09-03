@@ -127,9 +127,11 @@
                   <p class="text-red">包桌百家乐・经典百家乐・竟咪百家乐</p>
                 </div>
               </div>
+              <img src="/image/btn_live01_text.png" class="img-text">
               <img src="/image/btn_live01.png">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="579px" height="271px"><path fill-rule="evenodd"  fill="currentColor" d="M20.000,49.1000 L559.000,0.000 C570.046,0.000 578.1000,8.954 578.1000,19.1000 L578.1000,251.000 C578.1000,262.046 570.046,270.1000 559.000,270.1000 L20.000,270.1000 C8.954,270.1000 0.000,262.046 0.000,251.000 L0.000,70.000 C0.000,58.954 8.954,49.1000 20.000,49.1000 Z"/></svg>
             </a>
-            <a href="#" class="live-item" style="--color-first-live-line: #02AC63">
+            <a href="#" class="live-item" style="background-image: url('/image/btn_live02.png'); --color-first-live-line: #02AC63">
               <button class="item-btn">Play</button>
               <div class="item-text">
                 <div class="title">AG视讯</div>
@@ -137,9 +139,8 @@
                   <p>实体赌场真人荷官现场发牌</p>
                 </div>
               </div>
-              <img src="/image/btn_live02.png">
             </a>
-            <a href="#" class="live-item" style="--color-first-live-line: #F5B443">
+            <a href="#" class="live-item" style="background-image: url('/image/btn_live03.png'); --color-first-live-line: #F5B443">
               <button class="item-btn">Play</button>
               <div class="item-text">
                 <div class="title">DB视讯</div>
@@ -147,9 +148,8 @@
                   <p>网上体验亲临赌场的刺激</p>
                 </div>
               </div>
-              <img src="/image/btn_live03.png">
             </a>
-            <a href="#" class="live-item" style="--color-first-live-line: #3E56E1">
+            <a href="#" class="live-item" style="background-image: url('/image/btn_live04.png'); --color-first-live-line: #3E56E1">
               <button class="item-btn">Play</button>
               <div class="item-text">
                 <div class="title">MG视讯</div>
@@ -157,9 +157,8 @@
                   <p>给你身临其境的真实感受</p>
                 </div>
               </div>
-              <img src="/image/btn_live04.png">
             </a>
-            <a href="#" class="live-item" style="--color-first-live-line: #45DDF6">
+            <a href="#" class="live-item" style="background-image: url('/image/btn_live05.png'); --color-first-live-line: #45DDF6">
               <button class="item-btn">Play</button>
               <div class="item-text">
                 <div class="title">BG视讯</div>
@@ -167,7 +166,6 @@
                   <p>最美荷官在线互动</p>
                 </div>
               </div>
-              <img src="/image/btn_live05.png">
             </a>
           </div>
         </div>

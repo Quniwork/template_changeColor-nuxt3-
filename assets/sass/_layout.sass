@@ -566,6 +566,12 @@ body
     gap: 16px
     .live-item
       display: block
+      width: 180px
+      height: 270px
+      background-color: var(--color-secondary)
+      background-position: center bottom
+      background-repeat: no-repeat
+      border-radius: 20px
       position: relative
       &::after
         content: ''
@@ -629,6 +635,23 @@ body
         opacity: 0
         transition: .5s transform, .4s bottom
       &:nth-child(1)
+        width: 580px
+        height: 332px
+        background-color: transparent
+        .img-text
+          mix-blend-mode: soft-light
+          position: absolute
+          top: 110px
+          left: 250px
+        > img
+          position: relative
+          z-index: 2
+        > svg
+          color: var(--color-secondary)
+          position: absolute
+          bottom: 0
+          left: 0
+          z-index: 1
         &:hover
           &::after
             display: none
@@ -640,11 +663,13 @@ body
           background-color: #C3101C
           left: 72%
           bottom: 10%
+          z-index: 3
           opacity: 1
         .item-text
           width: 286px
           top: 115px
           left: 72%
+          z-index: 3
           .description
             white-space: inherit
             text-align: left
