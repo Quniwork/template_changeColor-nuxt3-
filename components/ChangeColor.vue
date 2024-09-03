@@ -1,12 +1,5 @@
 <template>
   <div ref="changeColorBlock" class="changeColor-block">
-    <!-- <div class="changeColor-edit">
-      <button class="edit" @click="toggleEditMode">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
-          <path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152L0 424c0 48.6 39.4 88 88 88l272 0c48.6 0 88-39.4 88-88l0-112c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 112c0 22.1-17.9 40-40 40L88 464c-22.1 0-40-17.9-40-40l0-272c0-22.1 17.9-40 40-40l112 0c13.3 0 24-10.7 24-24s-10.7-24-24-24L88 64z"/>
-        </svg>
-      </button>
-    </div> -->
     <div class="changeColor-wrap">
       <div class="changeColor-default">
         <div class="color-item" @click="setTheme('dark')" :class="{ active: theme === 'dark' }">
@@ -52,82 +45,31 @@
 </template>
 
 <script setup>
-import { ref, onMounted, inject } from 'vue'
+import { ref, onMounted, inject, nextTick } from 'vue';
 import html2canvas from 'html2canvas'; // 导入 html2canvas
 import JSZip from 'jszip' // 导入 JSZip
 
-// 主題狀態注入
-const theme = inject('theme')
+// 注入主題狀態
+const theme = inject('theme');
 const isEditMode = ref(false); // 管理编辑模式的状态
+const changeColorBlock = ref(null); // 绑定 changeColorBlock
 
-// 切換編輯模式
-const toggleEditMode = () => {
-  isEditMode.value = !isEditMode.value;
-  if (isEditMode.value) {
-    addPickButtons();
-  } else {
-    removePickButtons();
-  }
-};
+// colorPickers 初始值
+const colorPickers = ref([]);
 
-// 添加 pick-btn 和 pickColor-wrap
-const addPickButtons = () => {
-  const editableElements = document.querySelectorAll('[data-edit="true"]');
-
-  editableElements.forEach(element => {
-    // 如果沒有 pick-btn 則添加
-    if (!element.querySelector('.pick-btn')) {
-      const pickBtn = document.createElement('div');
-      pickBtn.className = 'pick-btn';
-      pickBtn.textContent = '選擇顏色';
-      element.prepend(pickBtn); // 將 pick-btn 插入到元素內部的最前面
-
-      // 添加 pickColor-wrap 並隱藏
-      const pickColorWrap = document.createElement('div');
-      pickColorWrap.className = 'pickColor-wrap';
-      pickColorWrap.style.display = 'none';
-
-      const colorInput = document.createElement('input');
-      colorInput.type = 'color';
-      colorInput.addEventListener('input', (event) => {
-        const variable = `--color-${element.className.replace(/\s+/g, '-')}`;
-        document.documentElement.style.setProperty(variable, event.target.value);
-      });
-
-      pickColorWrap.appendChild(colorInput);
-      element.appendChild(pickColorWrap);
-
-      // 點擊 pick-btn 時顯示 pickColor-wrap
-      pickBtn.addEventListener('click', () => {
-        pickColorWrap.style.display = 'block';
-      });
-    }
-  });
-};
-
-// 移除 pick-btn 和 pickColor-wrap
-const removePickButtons = () => {
-  const pickButtons = document.querySelectorAll('.pick-btn');
-  const pickColorWraps = document.querySelectorAll('.pickColor-wrap');
-
-  pickButtons.forEach(pickBtn => pickBtn.remove());
-  pickColorWraps.forEach(pickColorWrap => pickColorWrap.remove());
-};
+// 檢查是否在客戶端環境中
+const isClient = typeof window !== 'undefined';
 
 // 設置主題並更新 data-theme 屬性
-const setTheme = (newTheme) => {
-  theme.value = newTheme
-  document.documentElement.setAttribute('data-theme', newTheme)
-}
+const setTheme = async (newTheme) => {
+  if (!isClient) return; // 確保只在客戶端執行
 
-// 當組件掛載時，預設設置 data-theme 為 theme.value 的初始值
-onMounted(() => {
-  document.documentElement.setAttribute('data-theme', theme.value)
-})
+  theme.value = newTheme;
+  document.documentElement.setAttribute('data-theme', newTheme);
 
-// 當組件掛載時，初始化 colorPickers
-const colorPickers = ref([]);
-onMounted(() => {
+  // 等待 DOM 更新後再更新 colorPickers 的顏色值
+  await nextTick();
+
   colorPickers.value = [
     { label: '主要顏色', variable: '--color-primary', value: getComputedStyle(document.documentElement).getPropertyValue('--color-primary').trim() },
     { label: '主輔助顏色', variable: '--color-secondary', value: getComputedStyle(document.documentElement).getPropertyValue('--color-secondary').trim() },
@@ -141,14 +83,17 @@ onMounted(() => {
     { label: 'Header背景色', variable: '--color-header-bg', value: getComputedStyle(document.documentElement).getPropertyValue('--color-header-bg').trim() },
     { label: 'Footer背景色', variable: '--color-footer-bg', value: getComputedStyle(document.documentElement).getPropertyValue('--color-footer-bg').trim() }
   ];
-});
+};
 
-const changeColorBlock = ref(null);
+// 组件挂载时设置初始主题
+if (isClient) {
+  setTheme(theme.value);
+}
 
-// 更新顏色的函數
+// 更新颜色函数
 const updateColor = (variable, value, index) => {
   document.documentElement.style.setProperty(variable, value);
-  colorPickers.value[index].value = value; // 同步更新 colorPickers 中的顏色值
+  colorPickers.value[index].value = value; // 同步更新 colorPickers 中的颜色值
 };
 
 // 触发隐藏的颜色选择器
@@ -159,7 +104,7 @@ const triggerColorPicker = (index) => {
   }
 };
 
-// 生成 CSS 样式的函数
+// 生成 CSS 样式函数
 const generateCss = () => {
   let css = '';
   colorPickers.value.forEach(color => {
@@ -175,7 +120,7 @@ const getNuxtAppTitle = () => {
   return config.public.NUXT_APP_TITLE || 'default-title';
 };
 
-// 保存 CSS 文件的函数
+// 保存 CSS 文件函数
 const saveCss = (cssContent) => {
   const blob = new Blob([cssContent], { type: 'text/css' });
   const url = URL.createObjectURL(blob);
@@ -189,7 +134,7 @@ const saveCss = (cssContent) => {
   URL.revokeObjectURL(url);
 };
 
-// 保存图片示意图的函数
+// 保存图片示意图函数
 const saveImage = () => {
   const changeColorBlockElement = changeColorBlock.value;
   changeColorBlockElement.style.display = 'none'; // 隐藏 ChangeColor 区块
@@ -199,6 +144,7 @@ const saveImage = () => {
     const link = document.createElement('a');
     link.href = dataURL;
 
+    // 获取环境变量中的标题
     const appTitle = getNuxtAppTitle();
     link.download = `${appTitle}.jpg`;
     link.click();
@@ -216,7 +162,7 @@ const saveImageAndCss = () => {
   saveImage();
 };
 
-// 保存封包
+// 保存封包函数
 const savePackage = async () => {
   const zip = new JSZip();
   const appTitle = getNuxtAppTitle();
