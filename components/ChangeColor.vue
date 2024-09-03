@@ -47,32 +47,35 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, inject } from 'vue'
 import html2canvas from 'html2canvas'; // 导入 html2canvas
 
-const theme = ref('dark')
+// 主題狀態注入
+const theme = inject('theme')
+
+// 設置主題並更新 data-theme 屬性
 const setTheme = (newTheme) => {
   theme.value = newTheme
   document.documentElement.setAttribute('data-theme', newTheme)
 }
+
+// 當組件掛載時，預設設置 data-theme 為 theme.value 的初始值
 onMounted(() => {
-  // 預設設置 data-theme 為 'dark'
   document.documentElement.setAttribute('data-theme', theme.value)
 })
 
 // 定义一个包含颜色选择器数据的数组
 const colorPickers = ref([
-  { label: '更改主色', variable: '--color-primary', value: '#0E77FF' },
+  { label: '主要顏色', variable: '--color-primary', value: '#0E77FF' },
+  { label: '輔助顏色', variable: '--color-secondary', value: '#0EACFF' },
   { label: '文字顏色', variable: '--color-primary-text', value: '#f5f5f5' },
   { label: '輔助文字顏色', variable: '--color-secondary-text', value: '#888888' },
   { label: '背景色', variable: '--color-primary-bg', value: '#000000' },
-  { label: '輔助背景色', variable: '--color-secondary-bg', value: '#212224' },
+  { label: '主輔助背景色', variable: '--color-secondary-bg', value: '#212224' },
+  { label: '次輔助背景色', variable: '--color-tertiary-bg', value: '#434343' },
   { label: '大廳背景色', variable: '--color-platform-bg', value: '#212224' },
   { label: 'Header背景色', variable: '--color-header-bg', value: '#212224' },
-  { label: 'Footer背景色', variable: '--color-footer-bg', value: '#434343' },
-  { label: '更改登入欄位背景色', variable: '--color-login-input', value: '#434343' },
-  { label: '更改登入按鈕背景色', variable: '--color-login-button', value: '#2C88FF' },
-  { label: '更改註冊按鈕背景色', variable: '--color-join-button', value: '#0EACFF' },
+  { label: 'Footer背景色', variable: '--color-footer-bg', value: '#434343' }
 ]);
 
 const changeColorBlock = ref(null);
