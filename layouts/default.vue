@@ -32,9 +32,18 @@ provide('theme', theme)
 const updateBodyClass = () => {
   if (typeof window !== 'undefined' && apiData.value.navItems) {
     const currentPath = route.path.replace('/', '')
-    const matchedNavItem = apiData.value.navItems.find(item => item.link === currentPath)
+    let matchedClass = 'default'
 
-    document.body.className = matchedNavItem?.class || 'default'
+    if (currentPath === '' || currentPath === 'first') {
+      matchedClass = 'first'
+    } else {
+      const matchedNavItem = apiData.value.navItems.find(item => item.link === currentPath)
+      if (matchedNavItem) {
+        matchedClass = matchedNavItem.class
+      }
+    }
+
+    document.body.className = matchedClass
   }
 }
 
