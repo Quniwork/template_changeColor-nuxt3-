@@ -48,6 +48,7 @@
 
 <script setup>
 import { ref, onMounted, inject } from 'vue'
+import { getSassVariables } from '@/tools/sassVariables';
 import html2canvas from 'html2canvas'; // 导入 html2canvas
 
 // 主題狀態注入
@@ -64,18 +65,20 @@ onMounted(() => {
   document.documentElement.setAttribute('data-theme', theme.value)
 })
 
-// 定义一个包含颜色选择器数据的数组
+// 使用 getSassVariables 來初始化 colorPickers
+const sassVariables = getSassVariables();
+
 const colorPickers = ref([
-  { label: '主要顏色', variable: '--color-primary', value: '#0E77FF' },
-  { label: '輔助顏色', variable: '--color-secondary', value: '#0EACFF' },
-  { label: '文字顏色', variable: '--color-primary-text', value: '#f5f5f5' },
-  { label: '輔助文字顏色', variable: '--color-secondary-text', value: '#888888' },
-  { label: '背景色', variable: '--color-primary-bg', value: '#000000' },
-  { label: '主輔助背景色', variable: '--color-secondary-bg', value: '#212224' },
-  { label: '次輔助背景色', variable: '--color-tertiary-bg', value: '#434343' },
-  { label: '大廳背景色', variable: '--color-platform-bg', value: '#212224' },
-  { label: 'Header背景色', variable: '--color-header-bg', value: '#212224' },
-  { label: 'Footer背景色', variable: '--color-footer-bg', value: '#434343' }
+  { label: '主要顏色', variable: '--color-primary', value: sassVariables['--color-primary'] },
+  { label: '輔助顏色', variable: '--color-secondary', value: sassVariables['--color-secondary'] },
+  { label: '文字顏色', variable: '--color-primary-text', value: sassVariables['--color-primary-text'] },
+  { label: '輔助文字顏色', variable: '--color-secondary-text', value: sassVariables['--color-secondary-text'] },
+  { label: '背景色', variable: '--color-primary-bg', value: sassVariables['--color-primary-bg'] },
+  { label: '主輔助背景色', variable: '--color-secondary-bg', value: sassVariables['--color-secondary-bg'] },
+  { label: '次輔助背景色', variable: '--color-tertiary-bg', value: sassVariables['--color-tertiary-bg'] },
+  { label: 'Header背景色', variable: '--color-header-bg', value: sassVariables['--color-header-bg'] },
+  { label: 'Footer背景色', variable: '--color-footer-bg', value: sassVariables['--color-footer-bg'] },
+  { label: '大廳背景色', variable: '--color-platform-bg', value: sassVariables['--color-platform-bg'] }
 ]);
 
 const changeColorBlock = ref(null);
