@@ -48,7 +48,6 @@
 
 <script setup>
 import { ref, onMounted, inject } from 'vue'
-import { getSassVariables } from '@/tools/sassVariables';
 import html2canvas from 'html2canvas'; // 导入 html2canvas
 
 // 主題狀態注入
@@ -65,28 +64,29 @@ onMounted(() => {
   document.documentElement.setAttribute('data-theme', theme.value)
 })
 
-// 使用 getSassVariables 來初始化 colorPickers
-const sassVariables = getSassVariables();
-
-const colorPickers = ref([
-  { label: '主要顏色', variable: '--color-primary', value: sassVariables['--color-primary'] },
-  { label: '輔助顏色', variable: '--color-secondary', value: sassVariables['--color-secondary'] },
-  { label: '文字顏色', variable: '--color-primary-text', value: sassVariables['--color-primary-text'] },
-  { label: '輔助文字顏色', variable: '--color-secondary-text', value: sassVariables['--color-secondary-text'] },
-  { label: '背景色', variable: '--color-primary-bg', value: sassVariables['--color-primary-bg'] },
-  { label: '主輔助背景色', variable: '--color-secondary-bg', value: sassVariables['--color-secondary-bg'] },
-  { label: '次輔助背景色', variable: '--color-tertiary-bg', value: sassVariables['--color-tertiary-bg'] },
-  { label: 'Header背景色', variable: '--color-header-bg', value: sassVariables['--color-header-bg'] },
-  { label: 'Footer背景色', variable: '--color-footer-bg', value: sassVariables['--color-footer-bg'] },
-  { label: '大廳背景色', variable: '--color-platform-bg', value: sassVariables['--color-platform-bg'] }
-]);
+// 當組件掛載時，初始化 colorPickers
+const colorPickers = ref([]);
+onMounted(() => {
+  colorPickers.value = [
+    { label: '主要顏色', variable: '--color-primary', value: getComputedStyle(document.documentElement).getPropertyValue('--color-primary').trim() },
+    { label: '輔助顏色', variable: '--color-secondary', value: getComputedStyle(document.documentElement).getPropertyValue('--color-secondary').trim() },
+    { label: '文字顏色', variable: '--color-primary-text', value: getComputedStyle(document.documentElement).getPropertyValue('--color-primary-text').trim() },
+    { label: '輔助文字顏色', variable: '--color-secondary-text', value: getComputedStyle(document.documentElement).getPropertyValue('--color-secondary-text').trim() },
+    { label: '背景色', variable: '--color-primary-bg', value: getComputedStyle(document.documentElement).getPropertyValue('--color-primary-bg').trim() },
+    { label: '主輔助背景色', variable: '--color-secondary-bg', value: getComputedStyle(document.documentElement).getPropertyValue('--color-secondary-bg').trim() },
+    { label: '次輔助背景色', variable: '--color-tertiary-bg', value: getComputedStyle(document.documentElement).getPropertyValue('--color-tertiary-bg').trim() },
+    { label: '大廳背景色', variable: '--color-platform-bg', value: getComputedStyle(document.documentElement).getPropertyValue('--color-platform-bg').trim() },
+    { label: 'Header背景色', variable: '--color-header-bg', value: getComputedStyle(document.documentElement).getPropertyValue('--color-header-bg').trim() },
+    { label: 'Footer背景色', variable: '--color-footer-bg', value: getComputedStyle(document.documentElement).getPropertyValue('--color-footer-bg').trim() }
+  ];
+});
 
 const changeColorBlock = ref(null);
 
-// 更新颜色的统一方法
+// 更新顏色的函數
 const updateColor = (variable, value, index) => {
   document.documentElement.style.setProperty(variable, value);
-  colorPickers.value[index].value = value; // 同步更新 colorPickers 中的颜色值
+  colorPickers.value[index].value = value; // 同步更新 colorPickers 中的顏色值
 };
 
 // 触发隐藏的颜色选择器
