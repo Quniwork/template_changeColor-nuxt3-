@@ -232,15 +232,14 @@ const savePackage = async () => {
   const imgTags = doc.querySelectorAll('img');
   const promises = [];
 
-  imgTags.forEach((img, index) => {
+  imgTags.forEach((img) => {
     const imgUrl = img.src;
-    const imgFilename = `image${index + 1}.jpg`; // 图片文件名
-    img.src = `image/${imgFilename}`; // 替换为本地路径
+    const imgFilename = imgUrl.substring(imgUrl.lastIndexOf('/') + 1); // 提取原始文件名
 
     const promise = fetch(imgUrl)
       .then(response => response.blob())
       .then(blob => {
-        zip.file(`image/${imgFilename}`, blob);
+        zip.file(`image/${imgFilename}`, blob); // 使用原始文件名
       });
     promises.push(promise);
   });
@@ -273,5 +272,4 @@ const savePackage = async () => {
     console.error('Error generating screenshot:', error);
   });
 };
-
 </script>
