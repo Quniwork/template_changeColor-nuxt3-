@@ -90,6 +90,9 @@ if (isClient) {
   setTheme(theme.value);
 }
 
+// 組件初次加載時設置初始主題
+setTheme(theme.value);
+
 // 更新顏色的函數
 const updateColor = (variable, value, index) => {
   document.documentElement.style.setProperty(variable, value);

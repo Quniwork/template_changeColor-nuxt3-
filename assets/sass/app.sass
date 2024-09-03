@@ -1,4 +1,39 @@
-@import variables
+:root
+  // 版面寬度
+  --width: 1336px
+  --page-width: 1200px
+  --min-width: calc( var(--width) + 2rem )
+  --min-page-width: calc( var(--page-width) + 2rem )
+  // 版面配色
+  --color-primary: #0E77FF
+  --color-secondary: #0EACFF
+  --color-login-button: var(--color-primary)
+  --color-login-input: var(--color-tertiary-bg)
+  --color-login-placeholder: #B0B4B3
+  --color-join-button: var(--color-secondary)
+  --color-primary-text: #f5f5f5
+  --color-secondary-text: #888888
+  --color-primary-bg: #000000
+  --color-secondary-bg: #212224
+  --color-tertiary-bg: #434343
+  --color-header-bg: #212224
+  --color-platform-bg: #212224
+  --color-footer-bg: #434343
+  --color-footer-line: #707070
+  // 其他顏色定義
+  --color-first-live-line: #FF0011
+
+:root[data-theme="light"]
+  // 版面配色
+  --color-login-placeholder: #717171
+  --color-primary-text: #272727
+  --color-primary-bg: #ffffff
+  --color-secondary-bg: #EFF0F4
+  --color-tertiary-bg: #C8CEE0
+  --color-header-bg: #EFF0F4
+  --color-platform-bg: #EFF0F4
+  --color-footer-bg: #C8CEE0
+
 @import base
 @import layout
 @import page
