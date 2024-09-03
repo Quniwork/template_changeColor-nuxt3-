@@ -1,10 +1,7 @@
 <template>
-  <div>Redirecting...</div>
+  <FirstPage />
 </template>
 
-
 <script setup>
-import { navigateTo } from 'nuxt/app'
-
-navigateTo('/first')
+import FirstPage from '~/pages/first.vue'
 </script>
