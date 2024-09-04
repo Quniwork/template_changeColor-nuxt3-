@@ -4,19 +4,9 @@
     :pagination="true"
     :slides-per-view="1"
     :loop="true"
-    :effect="'creative'"
     :autoplay="{
       delay: 8000,
       disableOnInteraction: true,
-    }"
-    :creative-effect="{
-      prev: {
-        shadow: false,
-        translate: ['-20%', 0, -1],
-      },
-      next: {
-        translate: ['100%', 0, 0],
-      },
     }"
   >
     <swiper-slide v-for="(slide, index) in slides" :key="index">
