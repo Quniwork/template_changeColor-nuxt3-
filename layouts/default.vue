@@ -2,26 +2,26 @@
   <div class="page-layout">
     <ChangeColor />
     <div class="page-wrap">
-      <Header :apiData="apiData" />
+      <CommonHeader :apiData="apiData" />
       <Transition name="fade" mode="out-in">
         <main class="page-container-wrap">
           <nuxt-page />
         </main>
       </Transition>
-      <Footer :apiData="apiData" />
+      <CommonFooter :apiData="apiData" />
     </div>
   </div>
 </template>
 
 <script setup>
-import Header from '~/components/Header.vue'
-import Footer from '~/components/Footer.vue'
-import ChangeColor from '~/components/ChangeColor.vue'
+import { ref, provide, onMounted, watchEffect } from 'vue'
 import { useApiData } from '~/composables/useApiData'
 import { useRoute } from 'vue-router'
-import { onMounted, ref, provide, watchEffect } from 'vue'
 
+// 调用 useApiData 获取数据
 const { apiData } = useApiData()
+
+// 监听路由变化，根据路由更新数据
 const route = useRoute()
 
 // 提供 theme 給所有子組件
@@ -46,7 +46,6 @@ const updateBodyClass = () => {
     document.body.className = matchedClass
   }
 }
-
 onMounted(() => {
   updateBodyClass()
 

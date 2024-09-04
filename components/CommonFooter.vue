@@ -37,6 +37,5 @@
 </template>
 
 <script setup>
-  import { useApiData } from '~/composables/useApiData'
-  const { apiData } = useApiData()
+defineProps(['apiData']);
 </script>

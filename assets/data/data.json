@@ -4,6 +4,13 @@
     { "title": "官方导航", "link": "#" },
     { "title": "快速充值", "link": "#" }
   ],
+  "meminfoLinks": [
+    { "title": "会员中心", "link": "#" },
+    { "title": "线上存款", "link": "#" },
+    { "title": "线上取款", "link": "#" },
+    { "title": "一键归户", "link": "#" },
+    { "title": "未读讯息(1)", "link": "#" }
+  ],
   "footerLinks": [
     { "title": "关于我们", "link": "#" },
     { "title": "联系我们", "link": "#" },

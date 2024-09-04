@@ -2,8 +2,11 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03', // 如果確保兼容性，此配置可根據需要更新
   devtools: { enabled: true },
-
   modules: ['@nuxt/scripts'],
+  components: true, // 自动导入 components
+  imports: {
+    dirs: ['composables'], // 自动导入 composables
+  },
 
   app: {
     head: {

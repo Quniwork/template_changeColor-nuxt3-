@@ -50,7 +50,8 @@ body
     margin: 0 auto
 
 .header-wrap
-  display: flex
+  display: grid
+  grid-template-columns: 200px 1fr
   justify-content: flex-start
   gap: 20px
   width: 100%
@@ -62,7 +63,8 @@ body
       height: 100px
   .header-right
     .header-right-top
-      display: flex
+      display: grid
+      grid-template-columns: auto auto auto 1fr
       align-items: center
       gap: 22px
       padding: 18px 0 6px
@@ -71,9 +73,9 @@ body
         color: var(--color-secondary-text)
       .ele-custom-link-wrap ul
         display: flex
-        li
+        .ele-custom-link
           position: relative
-          + li::after
+          + .ele-custom-link::after
             content: ''
             display: block
             width: 1px
@@ -83,13 +85,60 @@ body
             top: 55%
             left: 0
             transform: translateY(-50%)
-        a
-          white-space: nowrap
-          color: var(--color-secondary-text)
-          padding: 0 6px
-          &:hover
-            color: var(--color-primary)
+          a
+            white-space: nowrap
+            color: var(--color-secondary-text)
+            padding: 0 6px
+            &:hover
+              color: var(--color-primary)
 
+// meminfo
+.member-wrap
+  display: flex
+  justify-content: flex-end
+.meminfo-wrap
+  .ele-meminfo-wrap
+    display: flex
+    justify-content: flex-end
+    gap: 30px
+    margin-bottom: 6px
+  .ele-meminfo-unit
+    display: flex
+    align-items: center
+    gap: 8px
+  .ele-balance-wrap
+    position: relative
+    .ele-accinfo
+      .fa-icon
+        height: 15px
+        color: var(--color-primary)
+        position: relative
+        top: 1px
+    .ele-balance-item
+      display: none
+  .ele-meminfo-link-wrap ul
+    display: flex
+    .ele-meminfo-link
+      position: relative
+      + .ele-meminfo-link::after
+        content: ''
+        display: block
+        width: 1px
+        height: 80%
+        background-color: var(--color-primary-text)
+        position: absolute
+        top: 55%
+        left: 0
+        transform: translateY(-50%)
+      a, button
+        cursor: pointer
+        white-space: nowrap
+        color: var(--color-primary-text)
+        background-color: transparent
+        border: 0
+        padding: 0 12px
+        &:hover
+          color: var(--color-primary)
 
 // footer
 .page-footer

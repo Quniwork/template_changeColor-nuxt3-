@@ -18,7 +18,7 @@
               </a>
             </div>
           </div>
-          <News class="isFirst" />
+          <CommonNews class="isFirst" />
         </div>
         <div class="first-hotgame-warp">
           <div class="hotgame-title">
@@ -202,7 +202,7 @@
 </template>
 
 <script setup>
-  import { useApiData } from '~/composables/useApiData'
+  defineProps(['apiData']);
   const { apiData } = useApiData()
 
   const imgHover = ref(null)
