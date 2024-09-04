@@ -5,7 +5,7 @@
       <CommonHeader :apiData="apiData" />
       <Transition name="fade" mode="out-in">
         <main class="page-container-wrap">
-          <nuxt-page />
+          <nuxt-page :apiData="apiData" />
         </main>
       </Transition>
       <CommonFooter :apiData="apiData" />
@@ -21,14 +21,14 @@ import { useRoute } from 'vue-router'
 // 调用 useApiData 获取数据
 const { apiData } = useApiData()
 
-// 监听路由变化，根据路由更新数据
-const route = useRoute()
-
-// 提供 theme 給所有子組件
+// 提供 theme 给所有子组件
 const theme = ref('dark')
 provide('theme', theme)
 
-// 動態設置 body 的 class
+// 获取路由信息
+const route = useRoute()
+
+// 动态设置 body 的 class
 const updateBodyClass = () => {
   if (typeof window !== 'undefined' && apiData.value.navItems) {
     const currentPath = route.path.replace('/', '')
@@ -46,9 +46,9 @@ const updateBodyClass = () => {
     document.body.className = matchedClass
   }
 }
-onMounted(() => {
-  updateBodyClass()
 
+// 在组件挂载时进行监听
+onMounted(() => {
   watchEffect(() => {
     updateBodyClass()
   })

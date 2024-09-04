@@ -5,9 +5,7 @@
         <div class="first-top-wrap">
           <div class="slider-wrap">
             <div class="ad-wrap">
-              <div id="js-ele-slideshow1" class="ele-slideshow-wrap">
-                <img src="/image/event01.png">
-              </div>
+              <CommonSlider />
             </div>
             <div class="first-promotion-warp">
               <a href="#" class="first-promotion-promotion" @mouseover="imgHover = 1" @mouseleave="imgHover = null">
@@ -202,12 +200,15 @@
 </template>
 
 <script setup>
-  defineProps(['apiData']);
-  const { apiData } = useApiData()
+  import { ref, computed, defineProps } from 'vue';
+
+  // 使用 defineProps 獲取傳遞進來的 apiData
+  const props = defineProps(['apiData']);
+  const { apiData } = props
 
   const imgHover = ref(null)
 
-  // 热门游戏左右滑动
+  // 熱門遊戲左右滑動
   const isActive = ref(1)
   const transformStyle = ref('transform: translateX(0);')
 
@@ -233,7 +234,7 @@
     if (!dragging) return
     const deltaX = event.clientX - startX
 
-    // 拖动过程中实时更新位置
+    // 拖動過程中更新位置
     const newTransform = initialTransform + (deltaX / window.innerWidth) * 100
     transformStyle.value = `transform: translateX(${newTransform}%);`
   }
@@ -242,15 +243,15 @@
     dragging = false
     const deltaX = event.clientX - startX
 
-    // 根据拖动的方向和距离决定是切换到下一个还是回到当前
+    // 根據拖動的方向和距離決定是切換到下一個還是回到當前
     if (deltaX < -50) {
-      // 向左拖动超过阈值，显示第二个区域
+      // 向左拖動超過閾值，顯示第二個區域
       setTransform(-50, 2)
     } else if (deltaX > 50) {
-      // 向右拖动超过阈值，显示第一个区域
+      // 向右拖動超過閾值，顯示第一個區域
       setTransform(0, 1)
     } else {
-      // 如果拖动距离不够大，恢复原位置
+      // 如果拖動距離不夠大，恢復原位置
       setTransform(initialTransform, isActive.value)
     }
 
@@ -258,23 +259,23 @@
     document.removeEventListener('mouseup', onMouseUp)
   }
 
-  // 游戏入口
+  // 遊戲入口
   const games = ref([])
+  // 使用 props.apiData 處理數據
   const activeTab = ref('Casino');
 
   watch(
-    () => apiData.value.games,
+    () => apiData.games,
     (newGames) => {
-      // console.log('apiData.games:', newGames)
       if (newGames) {
-        games.value = newGames
+        games.value = newGames;
       }
     },
-    { immediate: true }
-  )
+    { immediate: true } // 立即執行，初始化 games
+  );
 
-  // 计算属性，用于根据 activeTab 筛选游戏
+  // 計算屬性，用於 activeTab 篩選遊戲
   const filteredGames = computed(() => {
-    return games.value.filter(game => game.category === activeTab.value)
-  })
+    return props.apiData.games.filter(game => game.category === activeTab.value);
+  });
 </script>

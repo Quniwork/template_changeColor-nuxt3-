@@ -100,22 +100,54 @@ body
   .ele-meminfo-wrap
     display: flex
     justify-content: flex-end
-    gap: 30px
+    gap: 20px
     margin-bottom: 6px
+    strong
+      font-weight: normal
   .ele-meminfo-unit
     display: flex
     align-items: center
     gap: 8px
-  .ele-balance-wrap
     position: relative
-    .ele-accinfo
-      .fa-icon
-        height: 15px
-        color: var(--color-primary)
-        position: relative
-        top: 1px
+  .ele-accinfo
+    .fa-icon
+      height: 15px
+      color: var(--color-primary)
+      position: relative
+      top: 1px
+  .ele-balance-wrap
+    width: 16.875rem
+    font-size: 12px
+    color: var(--color-balance-text)
+    background-color: var(--color-balance-bg)
+    border: 1px solid var(--color-balance-border)
+    position: absolute
+    top: 90%
+    right: 0
+    z-index: 2099
     .ele-balance-item
-      display: none
+      line-height: 1.6
+      padding: 1rem
+    .ele-balance
+      white-space: nowrap
+    .ele-balance-tool
+      display: flex
+      justify-content: flex-end
+      background-color: var(--color-balance-btnbg)
+      border-top: 1px solid var(--color-balance-border)
+      padding: .25rem
+      .ele-balance-btn
+        cursor: pointer
+        text-decoration: none
+        line-height: 1.875rem
+        color: #fff
+        background-color: var(--color-balance-btn)
+        border-radius: .125rem
+        padding: 0 .5rem
+        transition: background-color .2s linear
+        &:hover
+          background-color: var(--color-balance-btn-hover)
+
   .ele-meminfo-link-wrap ul
     display: flex
     .ele-meminfo-link
@@ -130,7 +162,7 @@ body
         top: 55%
         left: 0
         transform: translateY(-50%)
-      a, button
+      a, .ele-logout-btn
         cursor: pointer
         white-space: nowrap
         color: var(--color-primary-text)
@@ -139,6 +171,8 @@ body
         padding: 0 12px
         &:hover
           color: var(--color-primary)
+      .ele-logout-btn
+        padding-right: 0
 
 // footer
 .page-footer
@@ -409,6 +443,9 @@ body
   .section-wrap
     display: flex
     justify-content: space-between
+  .ad-wrap
+    width: 550px
+    height: 300px
 
 .section2
   background-color: var(--color-secondary-bg)
@@ -628,7 +665,7 @@ body
         width: 100%
         height: 100%
         background-color: rgb(0 0 0 / 50%)
-        border-radius: 24px
+        border-radius: 20px
         position: absolute
         top: 0
         left: 0

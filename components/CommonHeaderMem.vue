@@ -72,19 +72,32 @@
               <span>BBIN余额：</span>
               <strong>168.08</strong>
             </div>
-            <div class="ele-balance-wrap">
-              <div class="ele-accinfo ele-other-balance">
-                <svg role="presentation" width="14" height="16" viewBox="0 0 448 512" class="fa-icon" fill="currentColor">
-                  <path d="M400 32H48C21.5 32 0 53.5 0 80V432C0 458.5 21.5 480 48 480H400C426.5 480 448 458.5 448 432V80C448 53.5 426.5 32 400 32zM368 284C368 290.6 362.6 296 356 296H264V388C264 394.6 258.6 400 252 400H196C189.4 400 184 394.6 184 388V296H92C85.4 296 80 290.6 80 284V228C80 221.4 85.4 216 92 216H184V124C184 117.4 189.4 112 196 112H252C258.6 112 264 117.4 264 124V216H356C362.6 216 368 221.4 368 228V284z"></path>
-                </svg>
-              </div>
-              <div class="ele-balance-item">
-                <div class="ele-balance">
-                  <span>PG電子餘額：</span>
-                  <strong>--</strong>
+            <div class="ele-accinfo ele-other-balance" @mouseover="cancelHideTimer" @mouseleave="startHideTimer">
+              <svg role="presentation" width="14" height="16" viewBox="0 0 448 512" class="fa-icon" fill="currentColor">
+                <path d="M400 32H48C21.5 32 0 53.5 0 80V432C0 458.5 21.5 480 48 480H400C426.5 480 448 458.5 448 432V80C448 53.5 426.5 32 400 32zM368 284C368 290.6 362.6 296 356 296H264V388C264 394.6 258.6 400 252 400H196C189.4 400 184 394.6 184 388V296H92C85.4 296 80 290.6 80 284V228C80 221.4 85.4 216 92 216H184V124C184 117.4 189.4 112 196 112H252C258.6 112 264 117.4 264 124V216H356C362.6 216 368 221.4 368 228V284z"></path>
+              </svg>
+            </div>
+            <transition name="fade">
+              <div v-if="showBalance" @mouseover="cancelHideTimer" @mouseleave="startHideTimer" class="ele-balance-wrap">
+                <div class="ele-balance-item">
+                  <div class="ele-balance">
+                    <span>AG视讯余额：</span>
+                    <strong>--</strong>
+                  </div>
+                  <div class="ele-balance">
+                    <span>欧博视讯余额：</span>
+                    <strong>68.00</strong>
+                  </div>
+                  <div class="ele-balance">
+                    <span>BG视讯余额：</span>
+                    <strong>100.00</strong>
+                  </div>
+                </div>
+                <div class="ele-balance-tool">
+                  <a href="#" class="ele-balance-btn">额度转换</a>
                 </div>
               </div>
-            </div>
+            </transition>
           </div>
         </div>
       </div>
@@ -174,4 +187,27 @@ const togglePasswordVisibility = () => {
 }
 
 const passwordType = computed(() => (isPasswordVisible.value ? 'text' : 'password'))
+
+
+// 控制餘額顯示
+const showBalance = ref(false)
+
+// 用於存儲計時器的引用
+let hideTimer = null
+
+// 開始隱藏計時器，給一點延遲來防止閃爍
+const startHideTimer = () => {
+  hideTimer = setTimeout(() => {
+    showBalance.value = false
+  }, 300) // 延遲 300 毫秒，防止閃爍
+}
+
+// 取消隱藏計時器
+const cancelHideTimer = () => {
+  if (hideTimer) {
+    clearTimeout(hideTimer)
+    hideTimer = null
+  }
+  showBalance.value = true // 確保餘額顯示
+}
 </script>

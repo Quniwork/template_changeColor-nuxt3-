@@ -17,6 +17,7 @@
     "html2canvas": "^1.4.1",
     "jszip": "^3.10.1",
     "nuxt": "^3.13.0",
+    "nuxt-swiper": "^1.2.2",
     "vue": "latest"
   },
   "devDependencies": {

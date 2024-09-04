@@ -124,7 +124,7 @@ import { ref, computed, inject } from 'vue'
 import { useRoute } from 'vue-router'
 defineProps(['apiData']);
 
-// 根据 theme 的值, 顯示對應的LOGO配色
+// 根據 theme 的值, 顯示對應的LOGO配色
 const theme = inject('theme')
 const currentImage = computed(() => {
   return theme.value === 'dark'
@@ -132,24 +132,24 @@ const currentImage = computed(() => {
     : '/image/logo_light.png'
 })
 
-// 用于追踪当前 hover 的导航项目索引
+// 用於追蹤當前 hover 的導航項目索引
 const hoverIndex = ref(null)
 
-// 控制 ele-morenav-container 的显示和隐藏
+// 控制 ele-morenav-container 的顯示和隱藏
 const showMoreNav = ref(false)
 
-// 判断当前链接是否处于 active 状态
+// 判斷當前鏈接是否處於 active 狀態
 const route = useRoute()
 const isActive = (link) => route.path === `/${link}`
 
-// 获取子菜单图片路径的函数
+// 獲取子菜單圖片路徑的函數
 const getSubNavImage = (img) => {
   if (!img) {
-    return '/image/default.png'; // 返回一个默认图片路径，防止 undefined 错误
+    return '/image/default.png'; // 返回一個默認圖片路徑，防止 undefined 錯誤
   }
   return `/image/not-use/subnav/zh-cn/subnav_${img}_title.png`;
 }
 
-// 判断路径是否为 '/first', 給予顯示banner及news components
+// 判斷路徑是否為 '/first', 給予顯示banner及news components
 const notFirst = computed(() => route.path !== '/first')
 </script>
