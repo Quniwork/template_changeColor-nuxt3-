@@ -7,8 +7,6 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
-
 // 定义一个 prop 来接收不同的图片路径
 const props = defineProps({
   imageSrc: {

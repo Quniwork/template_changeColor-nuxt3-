@@ -200,7 +200,7 @@
 </template>
 
 <script setup>
-  import { ref, computed, defineProps } from 'vue';
+  import { ref, computed } from 'vue';
 
   // 使用 defineProps 獲取傳遞進來的 apiData
   const props = defineProps(['apiData']);
