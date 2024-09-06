@@ -143,6 +143,12 @@ const triggerColorPicker = (index) => {
   }
 };
 
+// 获取环境变量中的标题
+const getNuxtAppTitle = () => {
+  const config = useRuntimeConfig();
+  return config.public.NUXT_APP_TITLE || 'default-title';
+};
+
 // 生成 CSS 样式函数
 const generateCss = () => {
   let css = '';
@@ -151,12 +157,6 @@ const generateCss = () => {
     css += `${labelComment}\n${color.variable}: ${color.value};\n\n`;
   });
   return css;
-};
-
-// 获取环境变量中的标题
-const getNuxtAppTitle = () => {
-  const config = useRuntimeConfig();
-  return config.public.NUXT_APP_TITLE || 'default-title';
 };
 
 // 保存 CSS 文件函数
@@ -173,10 +173,40 @@ const saveCss = (cssContent) => {
   URL.revokeObjectURL(url);
 };
 
-// 保存图片示意图函数
+// 保存图片示意图
+const saveImage = () => {
+  document.body.classList.remove('isEdit');
+  const changeColorBlockElement = changeColorBlock.value;
+  changeColorBlockElement.style.display = 'none'; // 隐藏 ChangeColor 区块
+
+  html2canvas(document.body).then(canvas => {
+    const dataURL = canvas.toDataURL('image/jpeg');
+    const link = document.createElement('a');
+    link.href = dataURL;
+
+    // 获取环境变量中的标题
+    const appTitle = getNuxtAppTitle();
+    link.download = `${appTitle}.jpg`;
+    link.click();
+
+    document.body.classList.add('isEdit');
+    changeColorBlockElement.style.display = ''; // 恢复显示 ChangeColor 区块
+  }).catch(error => {
+    console.error('Error generating screenshot:', error);
+  });
+};
+
+// 保存图片示意图和 CSS 文件
+const saveImageAndCss = () => {
+  const cssContent = generateCss();
+  saveCss(cssContent);
+  saveImage();
+};
+
+// 保存封包
 const savePackage = async () => {
   const zip = new JSZip();
-  const appTitle = getNuxtAppTitle();
+  const appTitle = getNuxtAppTitle(); // 获取标题作为文件名
 
   // 移除 body 上的 isEdit 类
   document.body.classList.remove('isEdit');
@@ -213,11 +243,11 @@ const savePackage = async () => {
 
   // 处理内联样式中的 background-image
   const elementsWithBackground = doc.querySelectorAll('*[style*="background-image"]');
-  
+
   elementsWithBackground.forEach((element) => {
     const style = element.getAttribute('style');
     const urlMatch = style.match(/url\(["']?(.*?)["']?\)/);
-    
+
     if (urlMatch && urlMatch[1]) {
       const backgroundImageUrl = urlMatch[1];
       const imgFilename = backgroundImageUrl.substring(backgroundImageUrl.lastIndexOf('/') + 1); // 提取文件名
@@ -254,7 +284,9 @@ const savePackage = async () => {
   html2canvas(document.body).then(canvas => {
     const dataURL = canvas.toDataURL('image/jpeg');
     const imgData = dataURL.split(',')[1]; // 去掉 data:image/jpeg;base64, 头部
-    zip.file(`screenshot.jpg`, imgData, { base64: true });
+
+    // 使用 appTitle 作为截图文件名
+    zip.file(`${appTitle}.jpg`, imgData, { base64: true });
 
     // 恢复显示 ChangeColor 区块
     changeColorBlockElement.style.display = '';
@@ -266,7 +298,7 @@ const savePackage = async () => {
     zip.generateAsync({ type: 'blob' }).then(content => {
       const link = document.createElement('a');
       link.href = URL.createObjectURL(content);
-      link.download = `${appTitle}.zip`;
+      link.download = `${appTitle}.zip`; // 以标题作为 ZIP 文件名
       link.click();
     });
   }).catch(error => {
@@ -275,4 +307,5 @@ const savePackage = async () => {
     document.body.classList.add('isEdit');
   });
 };
+
 </script>
